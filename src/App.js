@@ -5,7 +5,7 @@ import { db, auth } from './firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input } from '@material-ui/core';
-import ImageUpload from './ImageUpload';  
+import ImageUpload from './ImageUpload';
 
 
 function getModalStyle() {
@@ -44,7 +44,7 @@ function App() {
 
 
   useEffect(() => {
-    db.collection('posts').orderBy('timestamp','desc').onSnapshot(snapshot => {
+    db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
       setPost(snapshot.docs.map(doc => ({
         id: doc.id,
         post: doc.data()
@@ -62,14 +62,14 @@ function App() {
         })
       })
       .catch((error) => alert(error.message));
-      setOpen(false)
+    setOpen(false)
   };
 
   const signIn = (event) => {
     event.preventDefault();
     auth
-    .signInWithEmailAndPassword(email,password)
-    .catch(error=>alert(error.message))
+      .signInWithEmailAndPassword(email, password)
+      .catch(error => alert(error.message))
 
     setOpenSignIn(false);
   }
@@ -94,10 +94,6 @@ function App() {
 
   return (
     <div className="app">
-
-      {user?.displayName ? (<ImageUpload username={user.displayName}/>) :
-       (<h1>Sorry, you need to login to upload</h1>  )}
-      
 
       <Modal
         open={open}
@@ -167,19 +163,23 @@ function App() {
           src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
           alt=""
         />
-      </div>
-      {user ? (<Button onClick={() => auth.signOut()} > Logout </Button>) : (
-        <div className="app__loginContainer">
-          <Button onClick={() => setOpen(true)} > Sign Up</Button>
-          <Button onClick={() => setOpenSignIn(true)} > Sign In</Button>
-        </div>
-      )}
+        {user ? (<Button onClick={() => auth.signOut()} > Logout </Button>) : (
+          <div className="app__loginContainer">
+            <Button onClick={() => setOpen(true)} > Sign Up</Button>
+            <Button onClick={() => setOpenSignIn(true)} > Sign In</Button>
+          </div>
+        )}
 
-      <h1>edededededeeede </h1>
+      </div>
+
+      <h1>welcome to instagram :D </h1>
 
       {post.map(({ id, post }) =>
         <Post key={id} username={post.username} caption={post.caption} imageURL={post.imageURL} />)
       }
+
+      {user?.displayName ? (<ImageUpload username={user.displayName} />) :
+        (<h1>Sorry, you need to login to upload</h1>)}
 
     </div>
   );

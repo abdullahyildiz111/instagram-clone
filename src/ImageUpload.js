@@ -52,9 +52,9 @@
   };
   
       return (
-          <div className="ImageUpload">
-              <h1>abc</h1>
-              <progress value={progress} max="100" />
+          <div className="imageupload">
+              
+              <progress className="imageupload__progress" value={progress} max="100" />
               <input type="text" placeholder="Enter a caption..." onChange={event=>setCaption( event.target.value)} value={caption} />
               <input type="file" onChange={handleOnchange}/>
               <Button  onClick={handleUpload}>
